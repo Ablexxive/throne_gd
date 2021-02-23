@@ -24,19 +24,19 @@ func _process(_delta: float) -> void:
 		shoot()
 
 func shoot():
-	var bullet = Bullet.instance()
-	owner.add_child(bullet)
-	bullet.transform = self.global_transform
-
 	#if Input.get_connected_joypads():
 	#	var aim_direction = get_aim_direction()
-	#	# https://godotforums.org/discussion/24477/aim-with-the-right-stick
+		# https://godotforums.org/discussion/24477/aim-with-the-right-stick
 	#	var rotation = atan2(aim_direction.y, aim_direction.x)
 	#	bullet.rotate(rotation)
 	#else:
 		#bullet.look_at(get_global_mouse_position())
-	var enemy = get_closest_enemy() 
-	bullet.look_at(enemy.global_position)
+	var enemy = get_closest_enemy()
+	if enemy:
+		var bullet = Bullet.instance()
+		owner.add_child(bullet)
+		bullet.transform = self.global_transform
+		bullet.look_at(enemy.global_position)
 
 func get_direction() -> Vector2:
 	return Vector2(

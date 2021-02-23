@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
 onready var anim_sprite: AnimatedSprite = $AnimatedSprite
-export var stationary: bool = false
+export var stationary: = false
+export var health: = 100
 
 func _ready() -> void:
 	anim_sprite.play()
@@ -20,3 +21,10 @@ func _physics_process(delta: float) -> void:
 	#print(tmp)
 	#get_angle_to(player.position)
 		#position += (player.position - position)/50
+
+func hit(damage: int) -> void:
+	health -= damage
+	if health <= 0:
+		queue_free()
+	else:
+		print("Hit for: ", damage)

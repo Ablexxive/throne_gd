@@ -8,11 +8,9 @@
 
 [node name="evil_whisper" parent="." instance=ExtResource( 3 )]
 position = Vector2( 57.3872, 18.5107 )
-stationary = true
 
 [node name="evil_whisper2" parent="." instance=ExtResource( 3 )]
 position = Vector2( -109.415, -37.7456 )
-stationary = true
 
 [node name="evil_whisper3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 29.9919, 134.583 )
