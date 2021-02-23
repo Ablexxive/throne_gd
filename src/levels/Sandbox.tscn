@@ -6,18 +6,47 @@
 
 [node name="Sandbox" type="Node2D"]
 
+[node name="evil_whisper" parent="." instance=ExtResource( 3 )]
+position = Vector2( 57.3872, 18.5107 )
+stationary = true
+
+[node name="evil_whisper2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -109.415, -37.7456 )
+stationary = true
+
+[node name="evil_whisper3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 29.9919, 134.583 )
+stationary = true
+
 [node name="tmp_floor_ref" type="Sprite" parent="."]
-position = Vector2( 115.808, 49.2561 )
+position = Vector2( -39.2607, 78.4254 )
+z_index = -100
 texture = ExtResource( 1 )
+offset = Vector2( -11.4534, -34.9854 )
 
-[node name="evil_whisper" parent="tmp_floor_ref" instance=ExtResource( 3 )]
-position = Vector2( -248.382, 37.4199 )
+[node name="tmp_floor_ref5" type="Sprite" parent="."]
+position = Vector2( -255.984, 221.99 )
+z_index = -100
+texture = ExtResource( 1 )
+offset = Vector2( -11.4534, -34.9854 )
 
-[node name="evil_whisper2" parent="tmp_floor_ref" instance=ExtResource( 3 )]
-position = Vector2( -225.223, -87.0017 )
+[node name="tmp_floor_ref2" type="Sprite" parent="."]
+position = Vector2( 179.606, 15.6736 )
+z_index = -100
+texture = ExtResource( 1 )
+offset = Vector2( -11.4534, -34.9854 )
 
-[node name="evil_whisper3" parent="tmp_floor_ref" instance=ExtResource( 3 )]
-position = Vector2( -85.8161, 85.3268 )
+[node name="tmp_floor_ref3" type="Sprite" parent="."]
+position = Vector2( 157.26, 165.054 )
+z_index = -100
+texture = ExtResource( 1 )
+offset = Vector2( -11.4534, -34.9854 )
+
+[node name="tmp_floor_ref4" type="Sprite" parent="."]
+position = Vector2( -169.968, -74.9341 )
+z_index = -100
+texture = ExtResource( 1 )
+offset = Vector2( -11.4534, -34.9854 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 20.131, 19.6148 )

@@ -1,14 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Actors/whisper.gd" type="Script" id=1]
 [ext_resource path="res://sprites/whisper.res" type="SpriteFrames" id=2]
+[ext_resource path="res://src/Actors/Bullet.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.3726, 12.1602 )
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8.89078, 12.3715 )
+
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 8
 script = ExtResource( 1 )
+Bullet = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
@@ -21,3 +26,17 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.5, 0.5 )
+
+[node name="Weapon" type="Node2D" parent="."]
+
+[node name="attack_timer" type="Timer" parent="Weapon"]
+wait_time = 0.4
+autostart = true
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+modulate = Color( 0.258824, 0.2, 0.2, 1 )
+position = Vector2( 0, -0.078743 )
+shape = SubResource( 2 )
+[connection signal="timeout" from="Weapon/attack_timer" to="." method="_on_attack_timer_timeout"]
