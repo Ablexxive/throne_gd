@@ -8,6 +8,8 @@ export (PackedScene) var Bullet
 # TODO- move to PlayerData.gd file to put player data together
 var velocity: = Vector2.ZERO
 export var speed: = 200.0
+export var firing: = true
+var hp: = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -67,4 +69,19 @@ func get_closest_enemy() -> Node:
 	return closest_enemy
 
 func _on_attack_timer_timeout() -> void:
-	shoot()
+	if firing:
+		shoot()
+
+func _on_HitBox_body_entered(body: Node) -> void:
+	if body.is_in_group("enemies"):
+		var damage = body.get_damage()
+		self._was_hit(damage)
+
+func _was_hit(damage: int) -> void:
+	hp -= damage
+	if hp <= 0:
+		print("dying!")
+		queue_free()
+	else:
+		$AnimationPlayer.play("hit_reaction")
+		print("Hit for: ", damage)
