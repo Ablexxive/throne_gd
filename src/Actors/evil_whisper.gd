@@ -40,3 +40,7 @@ func hit(damage: int) -> void:
 		
 func get_damage() -> int:
 	return collision_damage
+
+
+# Possible useful: 
+#https://www.davidepesce.com/2019/11/25/godot-tutorial-11-attacks-damage-death/

@@ -8,7 +8,7 @@ export (PackedScene) var Bullet
 # TODO- move to PlayerData.gd file to put player data together
 var velocity: = Vector2.ZERO
 export var speed: = 200.0
-export var firing: = true
+export var stop_shooting: = false
 var hp: = 100
 
 # Called when the node enters the scene tree for the first time.
@@ -37,6 +37,8 @@ func shoot():
 	if enemy:
 		var bullet = Bullet.instance()
 		owner.add_child(bullet)
+		# If we want the bullet to stay relative muzzle direction (i.e. for 
+		# a beam of magic), do `add_child(b)` instead to add it to self.
 		bullet.transform = self.global_transform
 		bullet.look_at(enemy.global_position)
 
@@ -69,7 +71,7 @@ func get_closest_enemy() -> Node:
 	return closest_enemy
 
 func _on_attack_timer_timeout() -> void:
-	if firing:
+	if not stop_shooting:
 		shoot()
 
 func _on_HitBox_body_entered(body: Node) -> void:
