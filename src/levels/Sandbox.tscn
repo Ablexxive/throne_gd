@@ -76,5 +76,4 @@ position = Vector2( 29.9919, 134.583 )
 
 [node name="MapEntitiesProperties" type="Node" parent="."]
 script = ExtResource( 1 )
-enemy_stationary = true
 stop_player_shooting = true
