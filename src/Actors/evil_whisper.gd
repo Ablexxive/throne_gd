@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 	if not stationary:
 		var player = get_parent().get_node("Player")
 		if player:
-		# TODO: This is temporary motion, replace with better once you do pathfinding.
+		# TODO: This is temporary motion, replaceith better once you do pathfinding.
 		# Smaller the divisor, the faster the enemy.
 			#movement_vector = position.direction_to(player.position) * speed * delta
 			#move_and_collide(movement_vector)

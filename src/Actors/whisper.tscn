@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/Actors/whisper.gd" type="Script" id=1]
 [ext_resource path="res://sprites/whisper.res" type="SpriteFrames" id=2]
+[ext_resource path="res://src/Actors/Weapon.gd" type="Script" id=3]
 [ext_resource path="res://src/Actors/Bullet.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -46,9 +47,12 @@ shape = SubResource( 1 )
 current = true
 
 [node name="Weapon" type="Node2D" parent="."]
+script = ExtResource( 3 )
+Bullet = ExtResource( 4 )
 
 [node name="attack_timer" type="Timer" parent="Weapon"]
 wait_time = 0.6
+one_shot = true
 autostart = true
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -60,5 +64,15 @@ shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/hit_reaction = SubResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -13.0
+margin_top = -28.0
+margin_right = 12.0
+margin_bottom = -14.0
+text = "VEl"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="Weapon/attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
