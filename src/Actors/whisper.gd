@@ -1,12 +1,12 @@
 extends KinematicBody2D
 
 onready var anim_sprite: AnimatedSprite = $AnimatedSprite
-onready var attack_timer: Timer = $Weapon/attack_timer
+onready var attack_timer: Timer = $Weapon/AttackTimer
 
 onready var label: Label = $Label
 
 # What if we put the bullet on the weapon? That way we could swap it out there? I dunno.
-export (PackedScene) var Bullet
+export (PackedScene) var Bullet = load("res://src/Actors/Bullet.tscn")
 
 # TODO- move to PlayerData.gd file to put player data together
 var velocity: = Vector2.ZERO
@@ -20,19 +20,20 @@ var stop_shooting: = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	anim_sprite.play()
+	label.text = "%s" % hp
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:
 	var direction: = get_direction()
 	velocity = speed * direction
 	velocity = move_and_slide(velocity, Vector2.ZERO)
-	label.text = "%s" % velocity
+	#label.text = "%s" % velocity
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot") && can_shoot:
 		shoot()
 	
-	if velocity == Vector2.ZERO && can_shoot:
+	if velocity == Vector2.ZERO && can_shoot && not stop_shooting:
 		shoot()
 
 func _on_attack_timer_timeout() -> void:
@@ -71,21 +72,24 @@ func get_closest_enemy() -> Node:
 
 	return closest_enemy
 
+func hit(damage: int) -> void:
+	self._was_hit(damage)
+
 func _was_hit(damage: int) -> void:
 	hp -= damage
+	label.text = "%s" % hp
 	if hp <= 0:
-		print("dying!")
 		queue_free()
 	else:
 		$AnimationPlayer.play("hit_reaction")
-		print("Hit for: ", damage)
-		
-		
+
 func shoot():
 	# https://godotforums.org/discussion/24477/aim-with-the-right-stick
 	var enemy = get_closest_enemy()
 	if enemy:
 		var bullet = Bullet.instance()
+		bullet.add_to_group("player_projectile")
+		#bullet.set_collision_mask_bit(2, 4)
 		owner.add_child(bullet)
 		# If we want the bullet to stay relative muzzle direction (i.e. for 
 		# a beam of magic), do `add_child(b)` instead to add it to self.
@@ -95,3 +99,4 @@ func shoot():
 		# Restart attack timer.
 		self.attack_timer.start(0.6)
 		can_shoot = false
+

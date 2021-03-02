@@ -41,7 +41,6 @@ visible = false
 shape = SubResource( 1 )
 
 [node name="HitBox" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 modulate = Color( 0.101961, 0.0823529, 0.0823529, 1 )
@@ -51,3 +50,22 @@ shape = SubResource( 2 )
 anims/hit_reaction = SubResource( 3 )
 
 [node name="Line2D" type="Line2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+margin_left = -7.54946
+margin_top = -24.258
+margin_right = 8.45054
+margin_bottom = -10.258
+text = "99"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Weapon" type="Node2D" parent="."]
+
+[node name="AttackTimer" type="Timer" parent="Weapon"]
+wait_time = 2.0
+one_shot = true
+autostart = true
+[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
+[connection signal="timeout" from="Weapon/AttackTimer" to="." method="_on_AttackTimer_timeout"]
