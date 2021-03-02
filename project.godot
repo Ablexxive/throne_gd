@@ -19,6 +19,10 @@ config/name="Throne"
 run/main_scene="res://src/levels/Sandbox.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayerData="*res://src/AutoLoad/PlayerData.tscn"
+
 [display]
 
 window/size/width=640

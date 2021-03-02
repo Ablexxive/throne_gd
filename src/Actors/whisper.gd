@@ -4,6 +4,7 @@ onready var anim_sprite: AnimatedSprite = $AnimatedSprite
 onready var attack_timer: Timer = $Weapon/AttackTimer
 
 onready var label: Label = $Label
+onready var score_label: Label = $Score
 
 # What if we put the bullet on the weapon? That way we could swap it out there? I dunno.
 export (PackedScene) var Bullet = load("res://src/Actors/Bullet.tscn")
@@ -19,8 +20,14 @@ var stop_shooting: = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	PlayerData.connect("score_updated", self, "update_score")
+	
 	anim_sprite.play()
 	label.text = "%s" % hp
+	score_label.text = "%s" % PlayerData.score
+
+func update_score() -> void:
+	score_label.text = "%s" % PlayerData.score
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:
@@ -80,6 +87,7 @@ func _was_hit(damage: int) -> void:
 	label.text = "%s" % hp
 	if hp <= 0:
 		queue_free()
+		PlayerData.deaths += 1
 	else:
 		$AnimationPlayer.play("hit_reaction")
 
