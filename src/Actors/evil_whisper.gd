@@ -16,7 +16,6 @@ var collision_damage: = 10
 func _ready() -> void:
 	anim_sprite.play()
 	label.text = "%s" % health
-	print(self.get_owner())
 
 var speed = 100.0
 var movement_vector = Vector2.ZERO
@@ -50,15 +49,10 @@ func shoot() -> void:
 		var bullet = Bullet.instance()
 		bullet.add_to_group("enemy_projectile")
 		bullet.set_target_group("player")
-		#bullet.set_collision_mask_bit(0, 1)
-		#print(bullet.get_collision_mask_bit(0))
-		#print(self.get_owner())
-		print(owner)
 		owner.add_child(bullet)
 		# If we want the bullet to stay relative muzzle direction (i.e. for 
 		# a beam of magic), do `add_child(b)` instead to add it to self.
 		bullet.transform = self.global_transform
-		#print(bullet.transform)
 		bullet.look_at(player.global_position)
 		
 		# Restart attack timer.
