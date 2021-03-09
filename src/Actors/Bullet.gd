@@ -1,7 +1,7 @@
 extends Area2D
 
-var speed: = 350.0
-var damage: = 20
+var speed: = 200.0
+var damage: = 50
 
 var target_group: = "enemies"
 

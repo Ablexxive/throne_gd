@@ -11,8 +11,8 @@ export (PackedScene) var Bullet = load("res://src/Actors/Bullet.tscn")
 
 # TODO- move to PlayerData.gd file to put player data together
 var velocity: = Vector2.ZERO
-export var speed: = 200.0
-var hp: = 100
+export var speed: = 250.0
+var hp: = 500
 var moving: = false
 
 var can_shoot: = false
@@ -21,7 +21,7 @@ var stop_shooting: = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	PlayerData.connect("score_updated", self, "update_score")
-	
+
 	anim_sprite.play()
 	label.text = "%s" % hp
 	score_label.text = "%s" % PlayerData.score
@@ -39,7 +39,7 @@ func _physics_process(_delta: float) -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot") && can_shoot:
 		shoot()
-	
+
 	if velocity == Vector2.ZERO && can_shoot && not stop_shooting:
 		shoot()
 
@@ -47,15 +47,17 @@ func _on_attack_timer_timeout() -> void:
 	can_shoot = true
 
 func _on_HitBox_body_entered(body: Node) -> void:
-	if body.is_in_group("enemies"):
-		var damage = body.get_damage()
-		self._was_hit(damage)
+	#if body.is_in_group("enemies"):
+		#var damage = body.get_damage()
+		#self._was_hit(damage)
+	pass
 
 func get_direction() -> Vector2:
-	return Vector2(
+	var dir = Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	)
+	) * 4.0
+	return dir.clamped(1.0)
 
 func get_aim_direction() -> Vector2:
 	return Vector2(
@@ -67,10 +69,10 @@ func get_closest_enemy() -> Node:
 	# https://godotengine.org/qa/48297/detecting-enemy-location-for-use-in-homing-missiles
 	var enemies = get_tree().get_nodes_in_group('enemies')
 	if enemies.empty(): return null
-	
+
 	var closest_enemy = null
 	var distance = INF
-	
+
 	for enemy in enemies:
 		var new_distance = self.global_position.distance_to(enemy.global_position)
 		if new_distance < distance:
@@ -99,12 +101,11 @@ func shoot():
 		bullet.add_to_group("player_projectile")
 		#bullet.set_collision_mask_bit(2, 4)
 		owner.add_child(bullet)
-		# If we want the bullet to stay relative muzzle direction (i.e. for 
+		# If we want the bullet to stay relative muzzle direction (i.e. for
 		# a beam of magic), do `add_child(b)` instead to add it to self.
 		bullet.transform = self.global_transform
 		bullet.look_at(enemy.global_position)
-		
+
 		# Restart attack timer.
 		self.attack_timer.start(0.6)
 		can_shoot = false
-
