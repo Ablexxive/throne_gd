@@ -12,11 +12,11 @@ export (PackedScene) var Bullet = load("res://src/Abilities/Bullet.tscn")
 # TODO- move to PlayerData.gd file to put player data together
 var velocity: = Vector2.ZERO
 export var speed: = 250.0
-var hp: = 500
+var hp: = 5500
 var moving: = false
 
 var can_shoot: = false
-var stop_shooting: = false
+export var stop_shooting: = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -5,11 +5,12 @@ export (PackedScene) var EnemyScene2
 export (PackedScene) var PlayerScene
 
 onready var spawn_points: = get_tree().get_nodes_in_group("spawn_points")
+export var num_enemies := 5
 
 
 func _process(_delta: float) -> void:
 	var enemies = get_tree().get_nodes_in_group("enemies")
-	if enemies.empty() || len(enemies) < 5:
+	if enemies.empty() || len(enemies) < num_enemies:
 		var new_enemy = null
 		if randi() % 2 == 0:
 			new_enemy = EnemyScene.instance()

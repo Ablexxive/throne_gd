@@ -17,6 +17,7 @@ var PATH_TIMER_CD := 0.2
 
 # Global Vars
 var health: = 100
+var attack_distance: = 180
 var movement_vector = Vector2.ZERO
 var can_shoot: = false
 var player = null
@@ -51,7 +52,7 @@ func _physics_process(delta: float) -> void:
 			move_and_slide(Vector2.ZERO)
 			var distance_from_player = self.global_position.distance_to(player.global_position)
 
-			if distance_from_player > 150:
+			if distance_from_player > attack_distance:
 				var move_distance: float = SPEED * delta
 				move_along_path(move_distance)
 			else:

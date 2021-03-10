@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/levels/MapEntitiesProperties.gd" type="Script" id=1]
 [ext_resource path="res://src/Actors/Player.tscn" type="PackedScene" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://src/levels/tile_set.tres" type="Texture" id=4]
 [ext_resource path="res://src/levels/Sandbox.gd" type="Script" id=5]
 [ext_resource path="res://src/Actors/StrongRanged.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/Abilities/GroundSpike.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -58,6 +57,7 @@ script = ExtResource( 5 )
 EnemyScene = ExtResource( 3 )
 EnemyScene2 = ExtResource( 6 )
 PlayerScene = ExtResource( 2 )
+num_enemies = 6
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
@@ -118,6 +118,3 @@ position = Vector2( 453.281, -290.837 )
 "spawn_points",
 ]]
 position = Vector2( -551.995, 334.749 )
-
-[node name="GroundSpike" parent="." instance=ExtResource( 7 )]
-position = Vector2( -13, 129 )
