@@ -8,12 +8,12 @@ onready var anim_sprite: AnimatedSprite = $AnimatedSprite
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 # Entity variables
-export (PackedScene) var Bullet = load("res://src/Actors/Bullet.tscn")
+export (PackedScene) var Bullet = load("res://src/Abilities/Bullet.tscn")
 export var stationary: = false
 
 # Constants
 var SPEED := 200.0
-var PATH_TIMER_CD := 1.0
+var PATH_TIMER_CD := 0.2
 
 # Global Vars
 var health: = 100

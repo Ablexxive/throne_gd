@@ -1,0 +1,32 @@
+{ "frames": [
+   {
+    "filename": "wizard 0.ase",
+    "frame": { "x": 0, "y": 0, "w": 18, "h": 20 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 6, "w": 18, "h": 20 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 220
+   },
+   {
+    "filename": "wizard 1.ase",
+    "frame": { "x": 18, "y": 0, "w": 18, "h": 19 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 6, "y": 7, "w": 18, "h": 19 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 220
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.16.3",
+  "image": "wizard.png",
+  "format": "RGBA8888",
+  "size": { "w": 36, "h": 20 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Idle", "from": 0, "to": 1, "direction": "forward" }
+  ]
+ }
+}

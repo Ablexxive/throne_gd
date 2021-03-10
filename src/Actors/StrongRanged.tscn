@@ -1,13 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Actors/StrongRanged.gd" type="Script" id=1]
-[ext_resource path="res://sprites/evil_whisper.res" type="SpriteFrames" id=2]
+[ext_resource path="res://sprites/wizard.res" type="SpriteFrames" id=2]
+[ext_resource path="res://src/Abilities/WarningCircle.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.3726, 12.1602 )
+extents = Vector2( 8.99297, 10.1606 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8.47701, 12.3735 )
+extents = Vector2( 9.33332, 10.2287 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "hit_reaction"
@@ -25,20 +26,19 @@ tracks/0/keys = {
 "values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="evil_whisper" type="KinematicBody2D" groups=[
+[node name="Mage" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 collision_layer = 5
 collision_mask = 20
 script = ExtResource( 1 )
+Bullet = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
 animation = "Idle"
-flip_v = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 
 [node name="HitBox" type="Area2D" parent="."]

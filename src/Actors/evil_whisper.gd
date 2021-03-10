@@ -4,7 +4,7 @@ extends "res://src/Actors/EnemyBase.gd"
 #onready var nav_2d: Navigation2D = get_parent().get_node("Navigation2D")
 #onready var label: Label = $Label
 #onready var attack_timer: Timer = $Weapon/AttackTimer
-#export (PackedScene) var Bullet = load("res://src/Actors/Bullet.tscn")
+#export (PackedScene) var Bullet = load("res://src/Abilities/Bullet.tscn")
 #
 ##onready var line_2d: Line2D = $Line2D
 #var path: = PoolVector2Array() setget set_path

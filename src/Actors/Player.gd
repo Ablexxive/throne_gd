@@ -7,7 +7,7 @@ onready var label: Label = $Label
 onready var score_label: Label = $Score
 
 # What if we put the bullet on the weapon? That way we could swap it out there? I dunno.
-export (PackedScene) var Bullet = load("res://src/Actors/Bullet.tscn")
+export (PackedScene) var Bullet = load("res://src/Abilities/Bullet.tscn")
 
 # TODO- move to PlayerData.gd file to put player data together
 var velocity: = Vector2.ZERO
