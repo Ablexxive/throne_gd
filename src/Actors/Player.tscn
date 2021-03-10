@@ -86,4 +86,3 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="timeout" from="Weapon/AttackTimer" to="." method="_on_attack_timer_timeout"]
-[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]

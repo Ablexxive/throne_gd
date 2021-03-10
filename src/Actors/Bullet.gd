@@ -11,7 +11,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 
 	if body.is_in_group(target_group):
-		body.hit(damage)
+		body.take_damage(damage)
 		queue_free()
 	elif body.get_class() == "TileMap":
 		queue_free()

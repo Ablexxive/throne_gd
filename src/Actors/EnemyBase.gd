@@ -13,15 +13,16 @@ export var stationary: = false
 
 # Constants
 var SPEED := 200.0
-var PATH_TIMER_CD := 0.2
+var PATH_TIMER_CD := 1.0
 
 # Global Vars
 var health: = 100
 var movement_vector = Vector2.ZERO
 var can_shoot: = false
+var player = null
 
 # Pathfinding Global Vars
-var follow_path: = PoolVector2Array() setget set_path
+var follow_path: = PoolVector2Array()
 var path_timer = PATH_TIMER_CD
 var current_path_node = 0
 
@@ -35,15 +36,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if not stationary:
-		var player = get_parent().get_node("Player")
+		# create a signal that shoots out when the player node is updated (i.e. respawns)
+		# so that we don't have to check it each time.
+		player = get_parent().get_node("Player")
 		if player:
-
 			path_timer -= delta
 			if path_timer <= 0.0 or follow_path.size() == 0:
-				path_timer = PATH_TIMER_CD
-				# Path optimization set to 'false' so that entities don't get stuck on walls.
-				follow_path = nav_2d.get_simple_path(self.global_position, player.global_position, false)
-				current_path_node = 0
+				refresh_path()
 			elif current_path_node > follow_path.size() -1:
 				# TODO Check if this is needed.
 				return
@@ -62,8 +61,20 @@ func _physics_process(delta: float) -> void:
 func _on_AttackTimer_timeout() -> void:
 		can_shoot = true
 
+func take_damage(damage: int) -> void:
+	# https://www.davidepesce.com/2019/11/25/godot-tutorial-11-attacks-damage-death/
+	health -= damage
+	label.text = "%s" % health
+	if health <= 0:
+		queue_free()
+		PlayerData.score += 10
+	else:
+		$AnimationPlayer.play("hit_reaction")
+
 func shoot() -> void:
-	var player = get_parent().get_node("Player")
+	# create a signal that shoots out when the player node is updated (i.e. respawns)
+	# so that we don't have to check it each time.
+	player = get_parent().get_node("Player")
 	if player:
 		var bullet = Bullet.instance()
 		bullet.add_to_group("enemy_projectile")
@@ -78,8 +89,11 @@ func shoot() -> void:
 		self.attack_timer.start(2.0)
 		can_shoot = false
 
-func set_path(value: PoolVector2Array) -> void:
-	follow_path = value
+func refresh_path() -> void:
+			path_timer = PATH_TIMER_CD
+			# Path optimization set to 'false' so that entities don't get stuck on walls.
+			follow_path = nav_2d.get_simple_path(self.global_position, player.global_position, false)
+			current_path_node = 0
 
 func move_along_path(distance: float) -> void:
 	var start_point: = position
@@ -100,14 +114,7 @@ func move_along_path(distance: float) -> void:
 			move_and_slide(Vector2.ZERO)
 		distance -= distance_to_next
 		start_point = follow_path[current_path_node]
-		current_path_node += 1
-
-func hit(damage: int) -> void:
-	# https://www.davidepesce.com/2019/11/25/godot-tutorial-11-attacks-damage-death/
-	health -= damage
-	label.text = "%s" % health
-	if health <= 0:
-		queue_free()
-		PlayerData.score += 10
-	else:
-		$AnimationPlayer.play("hit_reaction")
+		if current_path_node < follow_path.size() - 1:
+			current_path_node += 1
+		else:
+			refresh_path()

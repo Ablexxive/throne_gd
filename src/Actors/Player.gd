@@ -20,6 +20,7 @@ var stop_shooting: = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# warning-ignore:return_value_discarded
 	PlayerData.connect("score_updated", self, "update_score")
 
 	anim_sprite.play()
@@ -45,12 +46,6 @@ func _process(_delta: float) -> void:
 
 func _on_attack_timer_timeout() -> void:
 	can_shoot = true
-
-func _on_HitBox_body_entered(body: Node) -> void:
-	#if body.is_in_group("enemies"):
-		#var damage = body.get_damage()
-		#self._was_hit(damage)
-	pass
 
 func get_direction() -> Vector2:
 	var dir = Vector2(
@@ -81,10 +76,7 @@ func get_closest_enemy() -> Node:
 
 	return closest_enemy
 
-func hit(damage: int) -> void:
-	self._was_hit(damage)
-
-func _was_hit(damage: int) -> void:
+func take_damage(damage: int) -> void:
 	hp -= damage
 	label.text = "%s" % hp
 	if hp <= 0:
