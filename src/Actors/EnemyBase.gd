@@ -12,7 +12,7 @@ export (PackedScene) var Bullet = load("res://src/Actors/Bullet.tscn")
 export var stationary: = false
 
 # Constants
-var SPEED := 100.0
+var SPEED := 200.0
 var PATH_TIMER_CD := 0.2
 
 # Global Vars
@@ -41,8 +41,6 @@ func _physics_process(delta: float) -> void:
 			path_timer -= delta
 			if path_timer <= 0.0 or follow_path.size() == 0:
 				path_timer = PATH_TIMER_CD
-				print("Path reset")
-
 				# Path optimization set to 'false' so that entities don't get stuck on walls.
 				follow_path = nav_2d.get_simple_path(self.global_position, player.global_position, false)
 				current_path_node = 0
@@ -50,31 +48,13 @@ func _physics_process(delta: float) -> void:
 				# TODO Check if this is needed.
 				return
 
-
-		# TODO: This is temporary motion, replace with better once you do pathfinding.
-		# Smaller the divisor, the faster the enemy.
-			#movement_vector = position.direction_to(player.position) * speed * delta
-			#move_and_collide(movement_vector)
+			# warning-ignore:return_value_discarded
+			move_and_slide(Vector2.ZERO)
 			var distance_from_player = self.global_position.distance_to(player.global_position)
-			if distance_from_player > 150:
-				# var new_path: PoolVector2Array = nav_2d.get_simple_path(self.global_position, player.global_position)
-				#line_2d.points = new_path
-				# path = new_path
-				# move_along_path_2(delta)
-				#var move_distance: float = speed * delta
-				#move_along_path(move_distance)
-				var direction = (follow_path[current_path_node] - self.global_transform.origin).normalized()
-				move_and_slide(direction * SPEED)
-				# move_and_collide(direction * delta * SPEED)
 
-				# Current path point has been reached, go to next.
-				if follow_path[current_path_node].distance_to(self.global_transform.origin) < 1.0:
-					# if current_path_node != follow_path.size():
-						# current_path_node += 1
-					if current_path_node < follow_path.size() - 3:
-						current_path_node += 3
-					elif current_path_node != follow_path.size():
-						current_path_node += 1
+			if distance_from_player > 150:
+				var move_distance: float = SPEED * delta
+				move_along_path(move_distance)
 			else:
 				if can_shoot:
 					shoot()
@@ -100,40 +80,27 @@ func shoot() -> void:
 
 func set_path(value: PoolVector2Array) -> void:
 	follow_path = value
-	#if value.size() == 0:
-	#	return
 
-# func move_along_path_2(delta: float) -> void:
-	# var start_point: = position
-	# for _idx in range(self.path.size()):
-		# var distance_to_next: = start_point.distance_to(path[0])
-		# if distance <= distance_to_next and distance >= 0.0:
-			# # position = start_point.linear_interpolate(path[0], distance/distance_to_next)
-			# ## TODO: use move_and_collide instead of updating the position
-			# #var new_position = start_point.linear_interpolate(path[0], distance/distance_to_next)
-			# #move_and_collide(new_position)
-			# break
-		# elif distance < 0.0:
-			# position = path[0]
-		# distance -= distance_to_next
-		# start_point = path[0]
-		# path.remove(0)
-
-# func move_along_path(distance: float) -> void:
-	# var start_point: = position
-	# for _idx in range(self.path.size()):
-		# var distance_to_next: = start_point.distance_to(path[0])
-		# if distance <= distance_to_next and distance >= 0.0:
-			# position = start_point.linear_interpolate(path[0], distance/distance_to_next)
-			# ## TODO: use move_and_collide instead of updating the position
-			# #var new_position = start_point.linear_interpolate(path[0], distance/distance_to_next)
-			# #move_and_collide(new_position)
-			# break
-		# elif distance < 0.0:
-			# position = path[0]
-		# distance -= distance_to_next
-		# start_point = path[0]
-		# path.remove(0)
+func move_along_path(distance: float) -> void:
+	var start_point: = position
+	for _idx in range(follow_path.size()):
+		var distance_to_next: = start_point.distance_to(follow_path[current_path_node])
+		if distance <= distance_to_next and distance >= 0.0:
+			position = start_point.linear_interpolate(follow_path[current_path_node], distance/distance_to_next)
+			# Note this `move_and_slide` call here helps the entities from getting stuck to each other.
+			# Can remove once we have more group movement behavior working.
+			# warning-ignore:return_value_discarded
+			move_and_slide(Vector2.ZERO)
+			break
+		elif distance < 0.0:
+			position = follow_path[current_path_node]
+			# Note this `move_and_slide` call here helps the entities from getting stuck to each other.
+			# Can remove once we have more group movement behavior working.
+			# warning-ignore:return_value_discarded
+			move_and_slide(Vector2.ZERO)
+		distance -= distance_to_next
+		start_point = follow_path[current_path_node]
+		current_path_node += 1
 
 func hit(damage: int) -> void:
 	# https://www.davidepesce.com/2019/11/25/godot-tutorial-11-attacks-damage-death/
