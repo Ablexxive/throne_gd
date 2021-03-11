@@ -21,10 +21,6 @@ func _ready() -> void:
 	tween.start()
 
 
-func set_target_group(group_id: String) -> void:
-	pass
-
-
 func _on_Tween_tween_completed(object: Object, key: NodePath) -> void:
 	$OverDurationTimer.start(over_duration)
 
