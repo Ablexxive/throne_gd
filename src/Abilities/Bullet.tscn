@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://sprites/bullet.png" type="Texture" id=1]
+[ext_resource path="res://sprites/smaller_bullet.png" type="Texture" id=1]
 [ext_resource path="res://src/Abilities/Bullet.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 11.8715
-height = 8.13201
+radius = 5.93616
+height = 1.73516
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 10

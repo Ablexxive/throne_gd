@@ -57,7 +57,7 @@ script = ExtResource( 5 )
 EnemyScene = ExtResource( 3 )
 EnemyScene2 = ExtResource( 6 )
 PlayerScene = ExtResource( 2 )
-num_enemies = 6
+num_enemies = 3
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
