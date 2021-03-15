@@ -16,16 +16,15 @@ func _process(_delta: float) -> void:
 			new_enemy = EnemyScene.instance()
 		else:
 			new_enemy = EnemyScene2.instance()
-		add_child(new_enemy)
 		# Set owner has to happen after a thing has been added to the scene!
 		new_enemy.set_owner(get_tree().get_root())
-
 		var spawn_point = spawn_points[randi() % spawn_points.size()]
 		new_enemy.transform = spawn_point.global_transform
+		add_child(new_enemy)
 
 	var player = get_tree().get_nodes_in_group("player")
 	if player.empty():
 		var new_player = PlayerScene.instance()
-		add_child(new_player)
 		new_player.set_owner(get_tree().get_root())
 		new_player.transform = self.global_transform
+		add_child(new_player)

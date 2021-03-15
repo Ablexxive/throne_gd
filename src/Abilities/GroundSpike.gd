@@ -4,7 +4,7 @@ var delay := 1.0
 var duration := 1.0
 
 func _ready() -> void:
-	set_target_group("player")
+	#set_target_group("player")
 	single_use(false)
 	$DelayTimer.start(delay)
 	$Sprite.visible = false

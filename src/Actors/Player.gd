@@ -8,6 +8,7 @@ onready var score_label: Label = $Score
 
 # What if we put the bullet on the weapon? That way we could swap it out there? I dunno.
 export (PackedScene) var Bullet = load("res://src/Abilities/Bullet.tscn")
+export (PackedScene) var Trap = load("res://src/Abilities/Trap.tscn")
 
 # TODO- move to PlayerData.gd file to put player data together
 var velocity: = Vector2.ZERO
@@ -16,7 +17,7 @@ var hp: = 5500
 var moving: = false
 
 var can_shoot: = false
-export var stop_shooting: = false
+export var stop_shooting: = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -38,11 +39,14 @@ func _physics_process(_delta: float) -> void:
 	#label.text = "%s" % velocity
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("shoot") && can_shoot:
+	if Input.is_action_just_pressed("shoot"):
 		shoot()
 
 	if velocity == Vector2.ZERO && can_shoot && not stop_shooting:
 		shoot()
+
+	if Input.is_action_just_pressed("skill_1"):
+		spawn_trap()
 
 func _on_attack_timer_timeout() -> void:
 	can_shoot = true
@@ -101,3 +105,14 @@ func shoot():
 		# Restart attack timer.
 		self.attack_timer.start(0.6)
 		can_shoot = false
+
+func spawn_trap():
+	var trap = Trap.instance()
+	#trap.add_to_group("player_projectile")
+	#trap.set_target_group("enemies")
+	trap.add_to_group("player_projectile")
+	trap.set_target_group("enemies")
+	#trap.delay = 0.1
+	#trap.duration = 10.0
+	get_tree().get_root().add_child(trap)
+	trap.transform = self.global_transform
