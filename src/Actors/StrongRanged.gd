@@ -34,6 +34,7 @@ func shoot() -> void:
 		ground_spike.delay = attack_warning_duration
 		ground_spike.add_to_group("enemy_projectile")
 		ground_spike.set_target_group("player")
+		ground_spike.single_use(false)
 		owner.add_child(ground_spike)
 		# If we want the ground_spike to stay relative muzzle direction (i.e. for
 		# a beam of magic), do `add_child(b)` instead to add it to self.

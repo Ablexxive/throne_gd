@@ -2,9 +2,9 @@
 
 [ext_resource path="res://src/levels/MapEntitiesProperties.gd" type="Script" id=1]
 [ext_resource path="res://src/Actors/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/Actors/evil_whisper.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/levels/tile_set.tres" type="Texture" id=4]
 [ext_resource path="res://src/levels/Sandbox.gd" type="Script" id=5]
+[ext_resource path="res://src/Actors/StrongRanged.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -53,8 +53,8 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 
 [node name="Sandbox" type="Node2D"]
 script = ExtResource( 5 )
-EnemyScene = ExtResource( 3 )
-EnemyScene2 = ExtResource( 3 )
+EnemyScene = ExtResource( 6 )
+EnemyScene2 = ExtResource( 6 )
 PlayerScene = ExtResource( 2 )
 num_enemies = 3
 

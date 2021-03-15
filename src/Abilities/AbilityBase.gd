@@ -11,12 +11,15 @@ func _on_body_entered(body: Node) -> void:
 		print("Enemy in target group!")
 		body.take_damage(damage)
 		if single_use:
-			queue_free()
+			end_effect()
 	elif body.get_class() == "TileMap":
-		queue_free()
+		end_effect()
 
 func set_target_group(group_id: String) -> void:
 	self.target_group = group_id
 
 func single_use(value: bool) -> void:
 	self.single_use = value
+
+func end_effect() -> void:
+	queue_free()

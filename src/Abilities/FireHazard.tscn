@@ -25,6 +25,9 @@ one_shot = true
 
 [node name="EffectTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="DelayTimer" to="." method="_on_DelayTimer_timeout"]
 [connection signal="timeout" from="EffectTimer" to="." method="_on_EffectTimer_timeout"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

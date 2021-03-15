@@ -57,8 +57,7 @@ func _physics_process(delta: float) -> void:
 				move_along_path(move_distance)
 			else:
 				if can_shoot:
-					pass
-					#shoot()
+					shoot()
 
 func _on_AttackTimer_timeout() -> void:
 		can_shoot = true

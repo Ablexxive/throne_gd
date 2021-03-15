@@ -17,7 +17,7 @@ var hp: = 5500
 var moving: = false
 
 var can_shoot: = false
-export var stop_shooting: = true
+export var stop_shooting: = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
