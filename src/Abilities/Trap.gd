@@ -9,7 +9,7 @@ func _on_Node2D_body_entered(body: Node) -> void:
 		var flame = FireHazard.instance()
 		flame.add_to_group("player_projectile")
 		flame.set_target_group("enemies")
-		flame.delay = 0.4
+		flame.delay = 0.1
 		flame.duration = 10.0
 		flame.transform = self.global_transform
 

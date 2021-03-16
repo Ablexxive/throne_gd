@@ -8,7 +8,7 @@ var attack_warning_duration := 0.5
 func _ready() -> void:
 	self.health = 200
 	self.SPEED = 80.0
-	self.attack_distance = 280
+	self.attack_distance = 230
 	label.text = "%s" % health
 
 func shoot() -> void:

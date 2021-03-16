@@ -17,7 +17,7 @@ var PATH_TIMER_CD := 0.2
 
 # Global Vars
 var health: = 100
-var attack_distance: = 180
+var attack_distance: = 130
 var movement_vector = Vector2.ZERO
 var can_shoot: = false
 var player = null

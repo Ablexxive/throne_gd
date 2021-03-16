@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 onready var anim_sprite: AnimatedSprite = $AnimatedSprite
-onready var attack_timer: Timer = $Weapon/AttackTimer
+onready var auto_attack_timer: Timer = $AutoAttack/AttackTimer
 
 onready var label: Label = $Label
 onready var score_label: Label = $Score
@@ -16,7 +16,7 @@ export var speed: = 250.0
 var hp: = 5500
 var moving: = false
 
-var can_shoot: = false
+var weapon_on_cd: = false
 export var stop_shooting: = false
 
 # Called when the node enters the scene tree for the first time.
@@ -40,16 +40,18 @@ func _physics_process(_delta: float) -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
-		shoot()
+		weapon_on_cd = $AutoAttack.shoot(self.global_transform)
+		#shoot()
 
-	if velocity == Vector2.ZERO && can_shoot && not stop_shooting:
-		shoot()
+	if velocity == Vector2.ZERO && not weapon_on_cd && not stop_shooting:
+		weapon_on_cd = $AutoAttack.shoot(self.global_transform)
+		#shoot()
 
 	if Input.is_action_just_pressed("skill_1"):
 		spawn_trap()
 
 func _on_attack_timer_timeout() -> void:
-	can_shoot = true
+	weapon_on_cd = false
 
 func get_direction() -> Vector2:
 	var dir = Vector2(
@@ -103,8 +105,8 @@ func shoot():
 		bullet.look_at(enemy.global_position)
 
 		# Restart attack timer.
-		self.attack_timer.start(0.6)
-		can_shoot = false
+		self.auto_attack_timer.start(0.6)
+		weapon_on_cd = true
 
 func spawn_trap():
 	var trap = Trap.instance()

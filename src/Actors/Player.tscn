@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Actors/Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/Player.res" type="SpriteFrames" id=2]
 [ext_resource path="res://src/Actors/Weapon.gd" type="Script" id=3]
-[ext_resource path="res://src/Abilities/Bullet.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.3726, 12.1602 )
@@ -33,7 +32,6 @@ tracks/0/keys = {
 collision_layer = 17
 collision_mask = 8
 script = ExtResource( 1 )
-Bullet = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
@@ -46,10 +44,10 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
-[node name="Weapon" type="Node2D" parent="."]
+[node name="AutoAttack" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
-[node name="AttackTimer" type="Timer" parent="Weapon"]
+[node name="AttackTimer" type="Timer" parent="AutoAttack"]
 wait_time = 0.6
 one_shot = true
 autostart = true
@@ -85,4 +83,4 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="timeout" from="Weapon/AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="AutoAttack/AttackTimer" to="." method="_on_attack_timer_timeout"]
