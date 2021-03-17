@@ -36,6 +36,6 @@ func end_effect() -> void:
 		Tween.TRANS_LINEAR, Tween.EASE_IN)
 	tween.start()
 
-func _on_Tween_tween_completed(object: Object, key: NodePath) -> void:
+func _on_Tween_tween_completed(_object: Object, _key: NodePath) -> void:
 	queue_free()
 

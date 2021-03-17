@@ -17,8 +17,5 @@ func _on_body_entered(body: Node) -> void:
 func set_target_group(group_id: String) -> void:
 	self.target_group = group_id
 
-func single_use(value: bool) -> void:
-	self.single_use = value
-
 func end_effect() -> void:
 	queue_free()
