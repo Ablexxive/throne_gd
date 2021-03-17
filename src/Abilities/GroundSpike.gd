@@ -16,4 +16,4 @@ func _on_DelayTimer_timeout() -> void:
 
 
 func _on_EffectTimer_timeout() -> void:
-	queue_free()
+	end_effect()

@@ -5,6 +5,7 @@ var single_use: = true
 
 var target_group: = "enemies"
 
+
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group(target_group):
 		body.take_damage(damage)

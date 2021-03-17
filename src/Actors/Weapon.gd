@@ -8,8 +8,8 @@ func shoot(current_location: Transform) -> bool:
 	var enemy = owner.get_closest_enemy()
 	if enemy:
 		var bullet = Bullet.instance()
-		bullet.damage = 10
-		bullet.add_to_group("player_projectile")
+		bullet.initialize()
+		#bullet.add_to_group("player_projectile")
 		bullet.transform = current_location
 		bullet.look_at(enemy.global_position)
 		get_tree().get_root().add_child(bullet)

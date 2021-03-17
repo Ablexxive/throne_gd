@@ -3,7 +3,6 @@ extends "res://src/Abilities/GroundSpike.gd"
 var end_effect_duration := 0.4
 
 func end_effect() -> void:
-	print("ending effect!")
 	var tween = get_node("Tween")
 	tween.interpolate_property($Sprite, "scale",
 		Vector2(1.0, 1.0), Vector2(0.0, 0.0), end_effect_duration,

@@ -22,6 +22,8 @@ func _on_Node2D_body_entered(body: Node) -> void:
 				Color(1, 1, 1, 1.0), Color(1, 1, 1, 0.0), flame.delay,
 				Tween.TRANS_LINEAR, Tween.EASE_IN)
 			tween.start()
+	elif body.get_class() == "TileMap":
+		queue_free()
 
 func _on_Tween_tween_completed(object: Object, key: NodePath) -> void:
 	queue_free()
