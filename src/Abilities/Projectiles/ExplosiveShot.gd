@@ -4,6 +4,7 @@ export (PackedScene) var Explosion = load("res://src/Abilities/Explosion.tscn")
 
 func initialize() -> void:
 	speed = 300.0
+	damage = 20.0
 	on_hit_ability = true
 
 func use_ability() -> void:

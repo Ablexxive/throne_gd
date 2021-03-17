@@ -2,7 +2,7 @@ extends Area2D
 
 var target_group: = "enemies"
 
-var damage: = 50
+var damage: = 50.0
 var speed: = 200.0
 
 var on_hit_ability: = false
@@ -22,8 +22,7 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group(target_group):
 		if on_hit_ability:
 			use_ability()
-		else:
-			body.take_damage(damage)
+		body.take_damage(damage)
 		end_effect()
 	elif body.get_class() == "TileMap":
 		end_effect()
