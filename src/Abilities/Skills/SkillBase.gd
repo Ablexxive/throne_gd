@@ -2,11 +2,14 @@ extends Area2D
 
 var target_group: = "enemies"
 
-var damage: = 50
 var single_use: = true
 
 var on_hit_ability: = false
 
+var damage: = 50
+
+var delay := 0.0
+var duration := 0.0
 
 func _init() -> void:
 	# Overwrite the initialize function in child class to overwrite class vars
@@ -50,9 +53,9 @@ func _on_DurationTimer_timeout() -> void:
 	pass # Replace with function body.
 
 
-func _on_SpawnTween_tween_completed(object: Object, key: NodePath) -> void:
+func _on_SpawnTween_tween_completed(_object: Object, _key: NodePath) -> void:
 	pass # Replace with function body.
 
 
-func _on_DespawnTween_tween_completed(object: Object, key: NodePath) -> void:
+func _on_DespawnTween_tween_completed(_object: Object, _key: NodePath) -> void:
 	pass # Replace with function body.

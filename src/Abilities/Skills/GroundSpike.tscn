@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Abilities/Skills/SkillBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/ground_spike.png" type="Texture" id=2]
+[ext_resource path="res://src/Abilities/Skills/GroundSpike.gd" type="Script" id=3]
+
+[node name="GroundSpike" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+position = Vector2( 0.79771, 5.07346 )
+polygon = PoolVector2Array( -0.874603, -16.4489, 11.1868, 7.67397, 10.3891, 10.6096, -12.2659, 10.7372, -13.7976, 7.32298 )
