@@ -13,7 +13,7 @@ export var stationary: = false
 
 # Constants
 var SPEED := 200.0
-var PATH_TIMER_CD := 0.2
+var PATH_TIMER_CD := 0.4
 
 # Global Vars
 var health: = 100
@@ -86,6 +86,7 @@ func shoot() -> void:
 		# a beam of magic), do `add_child(b)` instead to add it to self.
 		bullet.transform = self.global_transform
 		bullet.look_at(player.global_position)
+		bullet.speed = 110.0
 
 		# Restart attack timer.
 		self.attack_timer.start(2.0)

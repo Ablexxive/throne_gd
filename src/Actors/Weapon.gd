@@ -15,6 +15,6 @@ func shoot(current_location: Transform) -> bool:
 		get_tree().get_root().add_child(bullet)
 
 		# Restart attack timer.
-		attack_timer.start(0.6)
+		attack_timer.start(0.8)
 		return true
 	return false
