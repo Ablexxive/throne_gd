@@ -6,8 +6,6 @@ onready var auto_attack_timer: Timer = $AutoAttack/AttackTimer
 onready var label: Label = $Label
 onready var score_label: Label = $Score
 
-# What if we put the bullet on the weapon? That way we could swap it out there? I dunno.
-export (PackedScene) var Bullet = load("res://src/Abilities/Projectiles/ProjectileBase.tscn")
 export (PackedScene) var Trap = load("res://src/Abilities/Trap.tscn")
 export (PackedScene) var ExplosiveShot = load("res://src/Abilities/Projectiles/ExplosiveShot.tscn")
 
@@ -41,13 +39,10 @@ func _physics_process(_delta: float) -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
-		#weapon_on_cd = $AutoAttack.shoot(self.global_transform)
 		shoot_explosive_shot()
-		#shoot()
 
 	if velocity == Vector2.ZERO && not weapon_on_cd && not stop_shooting:
 		weapon_on_cd = $AutoAttack.shoot(self.global_transform)
-		#shoot()
 
 	if Input.is_action_just_pressed("skill_1"):
 		spawn_trap()
@@ -93,23 +88,6 @@ func take_damage(damage: int) -> void:
 	else:
 		$AnimationPlayer.play("hit_reaction")
 
-#func shoot():
-#	# https://godotforums.org/discussion/24477/aim-with-the-right-stick
-#	var enemy = get_closest_enemy()
-#	if enemy:
-#		var bullet = Bullet.instance()
-#		bullet.add_to_group("player_projectile")
-#		#bullet.set_collision_mask_bit(2, 4)
-#		owner.add_child(bullet)
-#		# If we want the bullet to stay relative muzzle direction (i.e. for
-#		# a beam of magic), do `add_child(b)` instead to add it to self.
-#		bullet.transform = self.global_transform
-#		bullet.look_at(enemy.global_position)
-#
-#		# Restart attack timer.
-#		self.auto_attack_timer.start(0.6)
-#		weapon_on_cd = true
-
 func spawn_trap():
 	var trap = Trap.instance()
 	#trap.add_to_group("player_projectile")
@@ -125,12 +103,8 @@ func shoot_explosive_shot():
 	var enemy = get_closest_enemy()
 	if enemy:
 		var explosive_shot = ExplosiveShot.instance()
-
 		explosive_shot.add_to_group("player_projectile")
 		explosive_shot.set_target_group("enemies")
-
-		print("looking at.")
 		explosive_shot.transform = self.global_transform
 		explosive_shot.look_at(enemy.global_position)
-
 		get_tree().get_root().add_child(explosive_shot)

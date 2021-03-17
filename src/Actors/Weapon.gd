@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var attack_timer: Timer = $AttackTimer
-export (PackedScene) var Bullet = load("res://src/Abilities/Bullet.tscn")
+export (PackedScene) var Bullet = load("res://src/Abilities/Projectiles/AutoShot.tscn")
 
 func shoot(current_location: Transform) -> bool:
 	# https://godotforums.org/discussion/24477/aim-with-the-right-stick

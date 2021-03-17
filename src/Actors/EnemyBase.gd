@@ -8,7 +8,7 @@ onready var anim_sprite: AnimatedSprite = $AnimatedSprite
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 # Entity variables
-export (PackedScene) var Bullet = load("res://src/Abilities/Bullet.tscn")
+export (PackedScene) var Bullet = load("res://src/Abilities/Projectiles/AutoShot.tscn")
 export var stationary: = false
 
 # Constants
@@ -57,8 +57,8 @@ func _physics_process(delta: float) -> void:
 				move_along_path(move_distance)
 			else:
 				if can_shoot:
-					#shoot()
-					pass
+					shoot()
+					#pass
 
 func _on_AttackTimer_timeout() -> void:
 		can_shoot = true

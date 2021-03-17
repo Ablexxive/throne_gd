@@ -4,7 +4,7 @@
 [ext_resource path="res://src/Abilities/Projectiles/ProjectileBase.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 3 )
+extents = Vector2( 12, 9 )
 
 [node name="ProjectileBase" type="Area2D"]
 collision_layer = 10
