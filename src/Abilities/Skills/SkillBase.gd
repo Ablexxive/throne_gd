@@ -8,8 +8,12 @@ var on_hit_ability: = false
 
 var damage: = 50
 
-var delay := 0.0
-var duration := 0.0
+# Signal Variables
+var delay := 0.00001
+var duration := 0.00001
+
+var spawn_effect_duration := 0.00001
+var end_effect_duration := 0.00001
 
 func _init() -> void:
 	# Overwrite the initialize function in child class to overwrite class vars
@@ -30,6 +34,9 @@ func _on_body_entered(body: Node) -> void:
 
 		body.take_damage(damage)
 	elif body.get_class() == "TileMap":
+		if on_hit_ability:
+			print("Using explosion")
+			use_ability()
 		end_effect()
 
 
@@ -42,6 +49,10 @@ func end_effect() -> void:
 
 ## Signals and functions to override in child classes
 
+func spawn_effect() -> void:
+	# You can initalize SpawnTween here
+	pass
+
 func use_ability() -> void:
 	pass
 
@@ -53,9 +64,9 @@ func _on_DurationTimer_timeout() -> void:
 	pass # Replace with function body.
 
 
-func _on_SpawnTween_tween_completed(_object: Object, _key: NodePath) -> void:
+func _on_Spawn_tween_all_completed() -> void:
 	pass # Replace with function body.
 
 
-func _on_DespawnTween_tween_completed(_object: Object, _key: NodePath) -> void:
+func _on_Despawn_tween_all_completed() -> void:
 	pass # Replace with function body.

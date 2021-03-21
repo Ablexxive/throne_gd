@@ -25,6 +25,8 @@ func _on_body_entered(body: Node) -> void:
 		body.take_damage(damage)
 		end_effect()
 	elif body.get_class() == "TileMap":
+		if on_hit_ability:
+			use_ability()
 		end_effect()
 
 func set_target_group(group_id: String) -> void:

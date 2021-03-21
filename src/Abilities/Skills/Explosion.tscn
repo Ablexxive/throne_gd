@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Abilities/Skills/SkillBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/explosion.png" type="Texture" id=2]
+[ext_resource path="res://src/Abilities/Skills/Explosion.gd" type="Script" id=3]
+
+[node name="Explosion" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+position = Vector2( 2.36123, 2.87177 )
+polygon = PoolVector2Array( -1.32132, -21.0118, 15.7497, -3.71737, -1.28942, 13.3218, -18.2967, -3.87691 )

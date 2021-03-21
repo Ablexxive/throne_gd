@@ -18,11 +18,11 @@ one_shot = true
 [node name="DurationTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="SpawnTween" type="Tween" parent="."]
+[node name="Spawn" type="Tween" parent="."]
 
-[node name="DespawnTween" type="Tween" parent="."]
+[node name="Despawn" type="Tween" parent="."]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="DelayTimer" to="." method="_on_DelayTimer_timeout"]
 [connection signal="timeout" from="DurationTimer" to="." method="_on_DurationTimer_timeout"]
-[connection signal="tween_completed" from="SpawnTween" to="." method="_on_SpawnTween_tween_completed"]
-[connection signal="tween_completed" from="DespawnTween" to="." method="_on_DespawnTween_tween_completed"]
+[connection signal="tween_all_completed" from="Spawn" to="." method="_on_Spawn_tween_all_completed"]
+[connection signal="tween_all_completed" from="Despawn" to="." method="_on_Despawn_tween_all_completed"]
