@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Abilities/Skills/SkillBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Abilities/Skills/FireHazard.gd" type="Script" id=2]
+[ext_resource path="res://sprites/fire.png" type="Texture" id=3]
+
+[node name="FireHazard" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+position = Vector2( 1.59795, 1.53091 )
+scale = Vector2( 0.528786, 0.763058 )
+polygon = PoolVector2Array( -1.09121, -17.3822, 14.5999, 4.49366, 7.92809, 10.0494, -8.3808, 10.0494, -16.2881, 3.79919 )

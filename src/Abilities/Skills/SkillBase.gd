@@ -35,8 +35,9 @@ func _on_body_entered(body: Node) -> void:
 		body.take_damage(damage)
 	elif body.get_class() == "TileMap":
 		if on_hit_ability:
-			print("Using explosion")
 			use_ability()
+		# If you want to the FireHazard to stay around when it hits the walls
+		# remove the 'end_effect()' call here.
 		end_effect()
 
 
