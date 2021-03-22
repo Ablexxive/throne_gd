@@ -10,7 +10,6 @@ func initialize() -> void:
 
 
 func use_ability() -> void:
-	print("Spawning Flame...")
 	var flame = FireHazard.instance()
 	flame.add_to_group("player_projectile")
 	flame.set_target_group("enemies")
