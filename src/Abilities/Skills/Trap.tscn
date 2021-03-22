@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Abilities/Skills/SkillBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Abilities/Skills/Trap.gd" type="Script" id=2]
+[ext_resource path="res://sprites/trap.png" type="Texture" id=3]
+
+[node name="Trap" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+position = Vector2( -0.668, 3.12182 )
+scale = Vector2( 0.855225, 1.16747 )
+polygon = PoolVector2Array( -10.879, -11.2159, 12.4261, -11.2008, 12.4467, 5.87118, -10.879, 5.90134 )
