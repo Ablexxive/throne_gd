@@ -12,7 +12,6 @@ func _ready() -> void:
 	spawn_effect()
 
 func spawn_effect() -> void:
-	print("Starting spawn effect)")
 	var spawn_tween = $Spawn
 	spawn_tween.interpolate_property($Sprite, "scale",
 		Vector2(0.0, 0.0), Vector2(anim_scale_factor, anim_scale_factor), spawn_effect_duration,

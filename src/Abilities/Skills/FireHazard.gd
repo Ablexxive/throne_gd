@@ -1,13 +1,14 @@
 extends "res://src/Abilities/Skills/SkillBase.gd"
 
 func initialize() -> void:
-	self.delay = 0.1
 	self.end_effect_duration = 1.0
 	self.duration = 10.0
 
 func _ready() -> void:
-	#$DelayTimer.start(self.delay)
 	$DurationTimer.start(self.duration)
+	# TODO: You prob don't need to do this if it's just being spawned from a trap.
+#	var re_align = Vector2(self.global_position.x + 1.0, self.global_position.y)
+#	self.look_at(re_align)
 
 func end_effect() -> void:
 	var tween = get_node("Despawn")
@@ -19,12 +20,6 @@ func end_effect() -> void:
 		Tween.TRANS_LINEAR, Tween.EASE_IN)
 	tween.start()
 
-func _on_DelayTimer_timeout() -> void:
-	pass
-	#$DurationTimer.start(self.duration)
-	# TODO: You prob don't need to do this if it's just being spawned from a trap.
-#	var re_align = Vector2(self.global_position.x + 1.0, self.global_position.y)
-#	self.look_at(re_align)
 
 func _on_DurationTimer_timeout() -> void:
 	end_effect()
