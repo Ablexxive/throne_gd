@@ -6,7 +6,7 @@ onready var auto_attack_timer: Timer = $AutoAttack/AttackTimer
 onready var label: Label = $Label
 onready var score_label: Label = $Score
 
-export (PackedScene) var Trap = load("res://src/Abilities/Trap.tscn")
+export (PackedScene) var Trap = load("res://src/Abilities/Skills/Trap.tscn")
 export (PackedScene) var ExplosiveShot = load("res://src/Abilities/Projectiles/ExplosiveShot.tscn")
 
 # TODO- move to PlayerData.gd file to put player data together
@@ -16,7 +16,9 @@ var hp: = 5500
 var moving: = false
 
 var weapon_on_cd: = false
+var attack_dist: = 200.0
 export var stop_shooting: = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -63,10 +65,10 @@ func get_aim_direction() -> Vector2:
 		Input.get_action_strength("look_down") - Input.get_action_strength("look_up")
 	)
 
-func get_closest_enemy() -> Node:
+func get_closest_enemy() -> Array:
 	# https://godotengine.org/qa/48297/detecting-enemy-location-for-use-in-homing-missiles
 	var enemies = get_tree().get_nodes_in_group('enemies')
-	if enemies.empty(): return null
+	if enemies.empty(): return [null, INF]
 
 	var closest_enemy = null
 	var distance = INF
@@ -76,8 +78,7 @@ func get_closest_enemy() -> Node:
 		if new_distance < distance:
 			distance = new_distance
 			closest_enemy = enemy
-
-	return closest_enemy
+	return [closest_enemy, distance]
 
 func take_damage(damage: int) -> void:
 	hp -= damage
@@ -90,21 +91,20 @@ func take_damage(damage: int) -> void:
 
 func spawn_trap():
 	var trap = Trap.instance()
-	#trap.add_to_group("player_projectile")
-	#trap.set_target_group("enemies")
 	trap.add_to_group("player_projectile")
 	trap.set_target_group("enemies")
-	#trap.delay = 0.1
-	#trap.duration = 10.0
 	get_tree().get_root().add_child(trap)
 	trap.transform = self.global_transform
 
 func shoot_explosive_shot():
-	var enemy = get_closest_enemy()
+	var enemy_and_distance = get_closest_enemy()
+	var enemy = enemy_and_distance.front()
+	var distance = enemy_and_distance.back()
 	if enemy:
-		var explosive_shot = ExplosiveShot.instance()
-		explosive_shot.add_to_group("player_projectile")
-		explosive_shot.set_target_group("enemies")
-		explosive_shot.transform = self.global_transform
-		explosive_shot.look_at(enemy.global_position)
-		get_tree().get_root().add_child(explosive_shot)
+		if distance <= attack_dist + 100.0:
+			var explosive_shot = ExplosiveShot.instance()
+			explosive_shot.add_to_group("player_projectile")
+			explosive_shot.set_target_group("enemies")
+			explosive_shot.transform = self.global_transform
+			explosive_shot.look_at(enemy.global_position)
+			get_tree().get_root().add_child(explosive_shot)
