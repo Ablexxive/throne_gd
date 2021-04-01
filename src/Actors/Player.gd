@@ -6,13 +6,16 @@ onready var auto_attack_timer: Timer = $AutoAttack/AttackTimer
 onready var label: Label = $Label
 onready var score_label: Label = $Score
 
+export (PackedScene) var Camera = load("res://src/Actors/BaseCamera.tscn")
+
 export (PackedScene) var Trap = load("res://src/Abilities/Skills/Trap.tscn")
 export (PackedScene) var ExplosiveShot = load("res://src/Abilities/Projectiles/ExplosiveShot.tscn")
 
 # TODO- move to PlayerData.gd file to put player data together
 var velocity: = Vector2.ZERO
-export var speed: = 250.0
-var hp: = 5500
+export var speed: = 150.0
+var hp: = 200
+var mana: = 100.0
 var moving: = false
 
 var weapon_on_cd: = false
@@ -29,6 +32,8 @@ func _ready() -> void:
 	label.text = "%s" % hp
 	score_label.text = "%s" % PlayerData.score
 
+
+
 func update_score() -> void:
 	score_label.text = "%s" % PlayerData.score
 
@@ -39,7 +44,7 @@ func _physics_process(_delta: float) -> void:
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 	#label.text = "%s" % velocity
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		shoot_explosive_shot()
 
@@ -48,6 +53,8 @@ func _process(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("skill_1"):
 		spawn_trap()
+
+	self.mana += 10.0 * delta
 
 func _on_attack_timer_timeout() -> void:
 	weapon_on_cd = false
@@ -90,21 +97,27 @@ func take_damage(damage: int) -> void:
 		$AnimationPlayer.play("hit_reaction")
 
 func spawn_trap():
+	#label.text = "%s" % mana
 	var trap = Trap.instance()
-	trap.add_to_group("player_projectile")
-	trap.set_target_group("enemies")
-	get_tree().get_root().add_child(trap)
-	trap.transform = self.global_transform
+	if trap.cost <= self.mana:
+		self.mana -= trap.cost
+		trap.add_to_group("player_projectile")
+		trap.set_target_group("enemies")
+		get_tree().get_root().add_child(trap)
+		trap.transform = self.global_transform
 
 func shoot_explosive_shot():
+	#label.text = "%s" % mana
 	var enemy_and_distance = get_closest_enemy()
 	var enemy = enemy_and_distance.front()
 	var distance = enemy_and_distance.back()
 	if enemy:
 		if distance <= attack_dist + 100.0:
 			var explosive_shot = ExplosiveShot.instance()
-			explosive_shot.add_to_group("player_projectile")
-			explosive_shot.set_target_group("enemies")
-			explosive_shot.transform = self.global_transform
-			explosive_shot.look_at(enemy.global_position)
-			get_tree().get_root().add_child(explosive_shot)
+			if explosive_shot.cost <= self.mana:
+				self.mana -= explosive_shot.cost
+				explosive_shot.add_to_group("player_projectile")
+				explosive_shot.set_target_group("enemies")
+				explosive_shot.transform = self.global_transform
+				explosive_shot.look_at(enemy.global_position)
+				get_tree().get_root().add_child(explosive_shot)

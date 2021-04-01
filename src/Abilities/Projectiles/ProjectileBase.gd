@@ -4,6 +4,7 @@ var target_group: = "enemies"
 
 var damage: = 50.0
 var speed: = 200.0
+var cost: = 0.0
 
 var on_hit_ability: = false
 

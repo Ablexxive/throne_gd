@@ -12,7 +12,7 @@ export (PackedScene) var Bullet = load("res://src/Abilities/Projectiles/AutoShot
 export var stationary: = false
 
 # Constants
-var SPEED := 200.0
+var SPEED := 75.0
 var PATH_TIMER_CD := 0.4
 
 # Global Vars
@@ -52,7 +52,7 @@ func _physics_process(delta: float) -> void:
 			move_and_slide(Vector2.ZERO)
 			var distance_from_player = self.global_position.distance_to(player.global_position)
 
-			if distance_from_player > attack_distance:
+			if distance_from_player > attack_distance and can_shoot:
 				var move_distance: float = SPEED * delta
 				move_along_path(move_distance)
 			else:

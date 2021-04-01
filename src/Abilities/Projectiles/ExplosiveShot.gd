@@ -3,9 +3,10 @@ extends "res://src/Abilities/Projectiles/ProjectileBase.gd"
 export (PackedScene) var Explosion = load("res://src/Abilities/Skills/Explosion.tscn")
 
 func initialize() -> void:
-	speed = 300.0
-	damage = 20.0
-	on_hit_ability = true
+	self.speed = 300.0
+	self.damage = 20.0
+	self.cost = 10.0
+	self.on_hit_ability = true
 
 func use_ability() -> void:
 	# Spawn Flame

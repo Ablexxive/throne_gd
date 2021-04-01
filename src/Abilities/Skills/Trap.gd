@@ -7,6 +7,7 @@ func initialize() -> void:
 	self.end_effect_duration = 0.3
 	self.damage = 0.0
 	self.on_hit_ability = true
+	self.cost = 5.0
 
 
 func use_ability() -> void:

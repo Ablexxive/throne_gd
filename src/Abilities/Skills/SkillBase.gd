@@ -7,6 +7,7 @@ var single_use: = true
 var on_hit_ability: = false
 
 var damage: = 50
+var cost: = 0.0
 
 # Signal Variables
 var delay := 0.00001
