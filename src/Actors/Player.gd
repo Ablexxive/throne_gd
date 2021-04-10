@@ -6,6 +6,9 @@ onready var auto_attack_timer: Timer = $AutoAttack/AttackTimer
 onready var label: Label = $Label
 onready var score_label: Label = $Score
 
+onready var hp_bar: TextureProgress = $Bars/HP
+onready var mp_bar: TextureProgress = $Bars/MP
+
 export (PackedScene) var Camera = load("res://src/Actors/BaseCamera.tscn")
 
 export (PackedScene) var Trap = load("res://src/Abilities/Skills/Trap.tscn")
@@ -32,7 +35,8 @@ func _ready() -> void:
 	label.text = "%s" % hp
 	score_label.text = "%s" % PlayerData.score
 
-
+	hp_bar.max_value = hp
+	hp_bar.value = hp
 
 func update_score() -> void:
 	score_label.text = "%s" % PlayerData.score
@@ -90,6 +94,7 @@ func get_closest_enemy() -> Array:
 func take_damage(damage: int) -> void:
 	hp -= damage
 	label.text = "%s" % hp
+	hp_bar.value = hp
 	if hp <= 0:
 		queue_free()
 		PlayerData.deaths += 1
